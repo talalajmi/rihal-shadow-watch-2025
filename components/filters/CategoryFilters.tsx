@@ -3,13 +3,7 @@ import { useState } from "react";
 import { Button } from "../ui/button";
 import { useRouter, useSearchParams } from "next/navigation";
 import { formUrlQuery, removeKeysFormUrlQuery } from "@/lib/url";
-
-enum CrimeType {
-  Assault = "assault",
-  Robbery = "robbery",
-  Homicide = "homicide",
-  Kidnapping = "kidnapping",
-}
+import { CrimeType } from "@/lib/utils";
 
 const categories = [
   {
