@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { formUrlQuery, removeKeysFormUrlQuery } from "@/lib/url";
 import { PlaceholdersAndVanishInput } from "../ui/placeholders-and-vanish-input";
 
 const SearchCrimeBar = () => {
   // ** Hooks
-  const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
   const query = searchParams.get("query") || "";
@@ -25,19 +23,17 @@ const SearchCrimeBar = () => {
 
         router.push(newUrl, { scroll: false });
       } else {
-        if (pathname === "/") {
-          const newUrl = removeKeysFormUrlQuery({
-            params: searchParams.toString(),
-            keysToRemove: ["query"],
-          });
+        const newUrl = removeKeysFormUrlQuery({
+          params: searchParams.toString(),
+          keysToRemove: ["query"],
+        });
 
-          router.push(newUrl, { scroll: false });
-        }
+        router.push(newUrl, { scroll: false });
       }
     }, 1000);
 
     return () => clearTimeout(delayDebounceFn);
-  }, [searchQuery, router, searchParams, pathname]);
+  }, [searchQuery, router, searchParams]);
 
   return (
     <PlaceholdersAndVanishInput

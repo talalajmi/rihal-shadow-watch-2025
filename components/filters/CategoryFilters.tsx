@@ -34,8 +34,8 @@ const CategoryFilters = () => {
   const searchParams = useSearchParams();
 
   // ** Constants
-  const filter = searchParams.get("filter");
-  const [activeCategory, setActiveCategory] = useState(filter || "");
+  const category = searchParams.get("category");
+  const [activeCategory, setActiveCategory] = useState(category || "");
 
   const handleFilterCategory = (category: string) => {
     let newUrl = "";

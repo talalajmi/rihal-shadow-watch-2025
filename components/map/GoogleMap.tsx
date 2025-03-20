@@ -13,8 +13,7 @@ import SearchCrimeBar from "../search/SearchCrimeBar";
 import CategoryFilters from "../filters/CategoryFilters";
 import CrimeDetailsCard from "../cards/CrimeDetailsCard";
 import { ReportCrimeDialog } from "../dialogs/ReportCrimeDialog";
-import { useCallback, useEffect, useState, useMemo, Suspense } from "react";
-import { Skeleton } from "../ui/skeleton";
+import { useCallback, useEffect, useState, useMemo } from "react";
 
 const INITIAL_CAMERA = {
   center: { lat: 23.588, lng: 58.3829 },
@@ -77,9 +76,7 @@ const GoogleMap = () => {
         </Map>
         <div className="absolute flex flex-col gap-5 top-20 z-10 w-full">
           <div className="px-2">
-            <Suspense fallback={<Skeleton className="w-full h-12" />}>
-              <SearchCrimeBar />
-            </Suspense>
+            <SearchCrimeBar />
           </div>
           <CategoryFilters />
         </div>
