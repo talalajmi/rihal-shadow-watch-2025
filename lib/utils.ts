@@ -13,6 +13,29 @@ export enum CrimeType {
   Kidnapping = "kidnapping",
 }
 
+export const categories = [
+  {
+    categoryName: "Assault",
+    icon: "/icons/assault.png",
+    type: CrimeType.Assault,
+  },
+  {
+    categoryName: "Robbery",
+    icon: "/icons/robbery.png",
+    type: CrimeType.Robbery,
+  },
+  {
+    categoryName: "Homicide",
+    icon: "/icons/homicide.png",
+    type: CrimeType.Homicide,
+  },
+  {
+    categoryName: "Kidnapping",
+    icon: "/icons/kidnapping.png",
+    type: CrimeType.Kidnapping,
+  },
+];
+
 export function filterCrimes(
   crimes: Crime[],
   query: string = "",

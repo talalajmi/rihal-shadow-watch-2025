@@ -5,30 +5,7 @@ import { useState } from "react";
 import { Button } from "../ui/button";
 import { useRouter, useSearchParams } from "next/navigation";
 import { formUrlQuery, removeKeysFormUrlQuery } from "@/lib/url";
-import { CrimeType } from "@/lib/utils";
-
-const categories = [
-  {
-    categoryName: "Assault",
-    icon: "/icons/assault.png",
-    type: CrimeType.Assault,
-  },
-  {
-    categoryName: "Robbery",
-    icon: "/icons/robbery.png",
-    type: CrimeType.Robbery,
-  },
-  {
-    categoryName: "Homicide",
-    icon: "/icons/homicide.png",
-    type: CrimeType.Homicide,
-  },
-  {
-    categoryName: "Kidnapping",
-    icon: "/icons/kidnapping.png",
-    type: CrimeType.Kidnapping,
-  },
-];
+import { categories } from "@/lib/utils";
 
 const CategoryFilters = () => {
   // ** Hooks
@@ -65,7 +42,7 @@ const CategoryFilters = () => {
   };
 
   return (
-    <div className="flex gap-4 overflow-x-auto w-full">
+    <div className="flex gap-4 overflow-x-auto w-full justify-start lg:justify-center">
       {categories.map((category) => (
         <Button
           key={category.type}
