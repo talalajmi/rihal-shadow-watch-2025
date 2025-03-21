@@ -1,17 +1,22 @@
 import { Crime } from "@/types/crime";
-import { Marker, MarkerClusterer } from "@googlemaps/markerclusterer";
-import { AdvancedMarker, useMap } from "@vis.gl/react-google-maps";
 import { useEffect, useRef, useState } from "react";
+import { AdvancedMarker, useMap } from "@vis.gl/react-google-maps";
+import { Marker, MarkerClusterer } from "@googlemaps/markerclusterer";
 
-const MapCrimeMarker = ({
-  crimes,
-  handleMarkerClick,
-}: {
+interface CrimeMapMarkersProps {
   crimes: Crime[];
   handleMarkerClick: (crime: Crime) => void;
-}) => {
-  const map = useMap();
+}
+
+const CrimeMapMarkers = (props: CrimeMapMarkersProps) => {
+  // ** Destrcuture props
+  const { crimes, handleMarkerClick } = props;
+
+  // ** States
   const [markers, setMarkers] = useState<{ [key: string]: Marker }>({});
+
+  // ** Hooks
+  const map = useMap();
   const clusterer = useRef<MarkerClusterer | null>(null);
 
   useEffect(() => {
@@ -58,4 +63,4 @@ const MapCrimeMarker = ({
   );
 };
 
-export default MapCrimeMarker;
+export default CrimeMapMarkers;

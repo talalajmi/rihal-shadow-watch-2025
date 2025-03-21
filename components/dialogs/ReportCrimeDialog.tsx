@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -31,6 +33,8 @@ import {
 import { reportCrimeSchema } from "@/lib/validation";
 import { toast } from "sonner";
 import { useState } from "react";
+import { addCrime } from "@/lib/actions/crime.action";
+import { Crime } from "@/types/crime";
 
 const defaultValues = {
   details: "",
@@ -44,7 +48,14 @@ const defaultValues = {
 
 const crimeOptions = ["Assault", "Robbery", "Homicide", "Kidnapping"];
 
-const ReportCrimeDialog = () => {
+interface ReportCrimeDialogProps {
+  handleAddCrime: (crime: Crime) => void;
+}
+
+const ReportCrimeDialog = (props: ReportCrimeDialogProps) => {
+  // ** Destructure props
+  const { handleAddCrime } = props;
+
   // ** States
   const [isDialogopen, setIsDialogopen] = useState(false);
 
@@ -55,32 +66,22 @@ const ReportCrimeDialog = () => {
   });
 
   const onSubmit = async (data: z.infer<typeof reportCrimeSchema>) => {
-    const crime = {
-      report_details: data.details,
-      crime_type: data.type,
-      report_status: "Pending",
-      latitude: data.location.lat,
-      longitude: data.location.lng,
-    };
-
     try {
-      // ** Send to api to add crime
-      const response = await fetch("/api/crimes", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(crime),
-      });
+      // ** Add crime to the database
+      const crime = await addCrime(data);
 
-      if (response.ok) {
-        toast.success("Event has been created.");
-        form.reset();
-        setIsDialogopen(false);
-      }
+      // ** Reset form
+      form.reset(defaultValues);
+
+      // ** Close dialog
+      setIsDialogopen(false);
+
+      toast.success("Crime reported successfully");
+
+      handleAddCrime(crime);
     } catch (error) {
-      console.log(error);
-      toast.error("An error occurred. Please try again.");
+      console.error("Error reporting crime:", error);
+      toast.error("Failed to report crime");
     }
   };
 

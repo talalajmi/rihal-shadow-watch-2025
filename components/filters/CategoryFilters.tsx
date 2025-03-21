@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { useState } from "react";
 import { Button } from "../ui/button";
@@ -34,26 +36,28 @@ const CategoryFilters = () => {
   const searchParams = useSearchParams();
 
   // ** Constants
-  const category = searchParams.get("category");
-  const [activeCategory, setActiveCategory] = useState(category || "");
+  const filter = searchParams.get("filter");
+  const [activeFilter, setActiveFilter] = useState(filter || "");
 
-  const handleFilterCategory = (category: string) => {
+  const handleFilterCategory = (filter: string) => {
     let newUrl = "";
 
-    if (category === activeCategory) {
-      setActiveCategory("");
+    if (filter === activeFilter) {
+      // Clear the filter if the same filter is clicked
+      setActiveFilter("");
 
       newUrl = removeKeysFormUrlQuery({
         params: searchParams.toString(),
-        keysToRemove: ["category"],
+        keysToRemove: ["filter"],
       });
     } else {
-      setActiveCategory(category);
+      // Set the new filter
+      setActiveFilter(filter);
 
       newUrl = formUrlQuery({
         params: searchParams.toString(),
-        key: "category",
-        value: category.toLowerCase(),
+        key: "filter",
+        value: filter.toLowerCase(),
       });
     }
 
@@ -61,15 +65,20 @@ const CategoryFilters = () => {
   };
 
   return (
-    <div className="flex justify-start sm:justify-center space-x-5 overflow-x-auto">
+    <div className="flex gap-4 overflow-x-auto w-full">
       {categories.map((category) => (
         <Button
           key={category.type}
           className="rounded-full cursor-pointer"
           onClick={() => handleFilterCategory(category.type)}
-          variant={activeCategory === category.type ? "default" : "outline"}
+          variant={activeFilter === category.type ? "default" : "outline"}
         >
-          <Image src={category.icon} alt="" width={24} height={24} />
+          <Image
+            width={24}
+            height={24}
+            src={category.icon}
+            alt={category.categoryName}
+          />
           {category.categoryName}
         </Button>
       ))}

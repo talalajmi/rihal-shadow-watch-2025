@@ -34,7 +34,7 @@ export async function POST(request: Request) {
       ...crimeData,
     };
     crimes.push(newCrime);
-    return NextResponse.json(crimes);
+    return NextResponse.json(newCrime);
   } catch (error) {
     console.error("Error adding crime:", error);
     return NextResponse.json(
