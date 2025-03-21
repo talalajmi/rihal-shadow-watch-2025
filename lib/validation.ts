@@ -13,7 +13,11 @@ export const reportCrimeSchema = z.object({
   nationalId: z
     .string()
     .min(8, "National ID must be at least 8 character")
-    .max(8, "National ID must be 8 characters"),
+    .max(8, "National ID must be 8 characters")
+    .refine(
+      (value) => /^[0-9]+$/.test(value),
+      "National ID must be numbers only"
+    ),
   location: z.object({
     lat: z
       .number()

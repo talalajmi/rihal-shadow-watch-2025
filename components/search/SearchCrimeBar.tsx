@@ -37,9 +37,12 @@ const SearchCrimeBar = () => {
 
   return (
     <PlaceholdersAndVanishInput
-      onSubmit={() => {}}
       onChange={(e) => setSearchQuery(e.target.value)}
-      placeholders={["Search for a crime", "Search for a location"]}
+      placeholders={[
+        "Search by crime type (e.g., Robbery)",
+        "Search by date (e.g., 2025-03-08)",
+        "Search by ID (e.g., 1)",
+      ]}
     />
   );
 };

@@ -12,39 +12,31 @@ import MapCrimeMarker from "./MapCrimeMarker";
 import SearchCrimeBar from "../search/SearchCrimeBar";
 import CategoryFilters from "../filters/CategoryFilters";
 import CrimeDetailsCard from "../cards/CrimeDetailsCard";
-import { ReportCrimeDialog } from "../dialogs/ReportCrimeDialog";
-import { useCallback, useEffect, useState, useMemo } from "react";
+import ReportCrimeDialog from "../dialogs/ReportCrimeDialog";
+import { useCallback, useState, useMemo } from "react";
 
 const INITIAL_CAMERA = {
   center: { lat: 23.588, lng: 58.3829 },
   zoom: 12,
 };
 
-const GoogleMap = () => {
+interface GoogleMapProps {
+  crimes: Crime[];
+}
+
+const GoogleMap = (props: GoogleMapProps) => {
+  // ** Destrcuture props
+  const { crimes } = props;
+
   // ** States
   const [cameraProps, setCameraProps] =
     useState<MapCameraProps>(INITIAL_CAMERA);
-  const [crimes, setCrimes] = useState<Crime[]>([]);
   const [selectedCrime, setSelectedCrime] = useState<Crime | null>(null);
 
   const handleCameraChange = useCallback(
     (ev: MapCameraChangedEvent) => setCameraProps(ev.detail),
     []
   );
-
-  const getCrimes = async () => {
-    try {
-      const response = await fetch("/api/crimes");
-      const data = await response.json();
-      setCrimes(data);
-    } catch (error) {
-      console.error("Failed to fetch crimes:", error);
-    }
-  };
-
-  useEffect(() => {
-    getCrimes();
-  }, []);
 
   const crimeMarkers = useMemo(
     () => (

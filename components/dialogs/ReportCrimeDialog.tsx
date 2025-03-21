@@ -29,7 +29,8 @@ import {
 } from "@/components/ui/form";
 
 import { reportCrimeSchema } from "@/lib/validation";
-import { CrimeType } from "@/lib/utils";
+import { toast } from "sonner";
+import { useState } from "react";
 
 const defaultValues = {
   details: "",
@@ -41,37 +42,53 @@ const defaultValues = {
   },
 };
 
-const crimeOptions = [
-  {
-    label: "Assault",
-    value: CrimeType.Assault,
-  },
-  {
-    label: "Robbery",
-    value: CrimeType.Robbery,
-  },
-  {
-    label: "Homicide",
-    value: CrimeType.Homicide,
-  },
-  {
-    label: "Kidnapping",
-    value: CrimeType.Kidnapping,
-  },
-];
+const crimeOptions = ["Assault", "Robbery", "Homicide", "Kidnapping"];
 
-export function ReportCrimeDialog() {
+const ReportCrimeDialog = () => {
+  // ** States
+  const [isDialogopen, setIsDialogopen] = useState(false);
+
+  // ** Form Validation
   const form = useForm<z.infer<typeof reportCrimeSchema>>({
     resolver: zodResolver(reportCrimeSchema),
     defaultValues,
   });
 
-  function onSubmit(values: z.infer<typeof reportCrimeSchema>) {
-    console.log(values);
-  }
+  const onSubmit = async (data: z.infer<typeof reportCrimeSchema>) => {
+    const crime = {
+      report_details: data.details,
+      crime_type: data.type,
+      report_status: "Pending",
+      latitude: data.location.lat,
+      longitude: data.location.lng,
+    };
+
+    try {
+      // ** Send to api to add crime
+      const response = await fetch("/api/crimes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(crime),
+      });
+
+      if (response.ok) {
+        toast.success("Event has been created.");
+        form.reset();
+        setIsDialogopen(false);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("An error occurred. Please try again.");
+    }
+  };
 
   return (
-    <Dialog>
+    <Dialog
+      open={isDialogopen}
+      onOpenChange={(isOpen) => setIsDialogopen(isOpen)}
+    >
       <DialogTrigger asChild>
         <Button className="rounded-full" size="lg">
           Report Crime
@@ -127,19 +144,15 @@ export function ReportCrimeDialog() {
                           <SelectValue placeholder="Select a crime type">
                             {form.getValues("type")
                               ? crimeOptions.find(
-                                  (crimeOption) =>
-                                    crimeOption.value === form.getValues("type")
-                                )?.label
+                                  (option) => option === form.getValues("type")
+                                )
                               : "Select a crime type"}
                           </SelectValue>
                         </SelectTrigger>
                         <SelectContent>
-                          {crimeOptions.map((crimeOption) => (
-                            <SelectItem
-                              key={crimeOption.value}
-                              value={crimeOption.value}
-                            >
-                              {crimeOption.label}
+                          {crimeOptions.map((crimeOption, i) => (
+                            <SelectItem key={i} value={crimeOption}>
+                              {crimeOption}
                             </SelectItem>
                           ))}
                         </SelectContent>
@@ -178,7 +191,7 @@ export function ReportCrimeDialog() {
                           type="number"
                           step="any"
                           placeholder="Enter latitude"
-                          value={field.value || ""}
+                          value={field.value || 0}
                           onChange={(e) =>
                             form.setValue(
                               "location.lat",
@@ -204,7 +217,7 @@ export function ReportCrimeDialog() {
                           type="number"
                           step="any"
                           placeholder="Enter longitude"
-                          value={field.value || ""}
+                          value={field.value || 0}
                           onChange={(e) =>
                             form.setValue(
                               "location.lng",
@@ -227,4 +240,6 @@ export function ReportCrimeDialog() {
       </DialogContent>
     </Dialog>
   );
-}
+};
+
+export default ReportCrimeDialog;
