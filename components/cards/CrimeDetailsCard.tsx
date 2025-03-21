@@ -51,7 +51,7 @@ const CrimeDetailsCard = (props: CrimeDetailCardProps) => {
                 width={24}
                 height={24}
                 alt="Crime"
-                src={`/icons/${crime.crime_type}.png`}
+                src={`/icons/${crime.crime_type.toLocaleLowerCase()}.png`}
               />
             </div>
             <div>
