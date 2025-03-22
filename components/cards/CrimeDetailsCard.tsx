@@ -42,42 +42,38 @@ const CrimeDetailsCard = (props: CrimeDetailCardProps) => {
       className="p-3"
       position={crimePosition}
       onCloseClick={handleOnCloseClick}
+      headerContent={<h3 className="text-xl font-bold">Crime Details</h3>}
     >
       <div className="space-y-3">
-        <div className="flex justify-between items-center">
-          <div className="flex items-center gap-2">
+        <div className="flex justify-between items-center flex-col sm:flex-row gap-2">
+          <div className="flex items-center flex-col sm:flex-row gap-2">
             <div className="rounded-full bg-gray-100 p-2">
               <Image
-                width={24}
-                height={24}
+                width={30}
+                height={30}
                 alt="Crime"
                 src={`/icons/${crime.crime_type.toLocaleLowerCase()}.png`}
               />
             </div>
-            <div>
-              <h3 className="text-xl font-bold">Crime Details</h3>
+            <div className="text-center sm:text-left">
+              <h3 className="text-xl font-bold">{crime.crime_type}</h3>
               <h3 className="text-gray-400 font-bold">
                 {convertDate(crime.report_date_time)}
               </h3>
             </div>
           </div>
-          <p className="font-bold text-gray-700">
-            <span
-              className={`ml-2 py-1 px-2 ${crimeStatusColor(
-                crime.report_status
-              )} rounded-full`}
-            >
-              {crime.report_status}
-            </span>
-          </p>
+          <div
+            className={`font-bold p-2 rounded-full w-full text-center sm:w-fit ${crimeStatusColor(
+              crime.report_status
+            )}`}
+          >
+            {crime.report_status}
+          </div>
         </div>
         <hr />
-        <p className="font-bold text-gray-700 text-[15px]">
+        <p className="font-bold text-gray-700 text-[16px]">
           Report:
           <span className="font-normal ml-1">{crime.report_details}</span>
-        </p>
-        <p className="font-bold text-gray-700 text-[15px]">
-          Type: <span className="font-normal ml-1">{crime.crime_type}</span>
         </p>
       </div>
     </InfoWindow>

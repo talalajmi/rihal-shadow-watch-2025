@@ -31,14 +31,14 @@ export default function CrimeDashboard(props: CrimeDashboardProps) {
 
   return (
     <main className="relative min-h-screen flex flex-col items-center justify-center">
-      <div className="p-2 absolute top-25 z-10 w-full flex items-center justify-center">
+      <div className="p-2 absolute top-15 z-10 w-full flex items-center justify-center">
         <div className="w-full md:w-1/2 flex flex-col items-center gap-4 bg-white p-5 rounded-xl shadow-lg">
           <SearchCrimeBar />
           <CategoryFilters />
         </div>
       </div>
       <CrimeMap crimes={filteredCrimes} />
-      <div className="absolute bottom-25 w-full flex items-center justify-center">
+      <div className="absolute bottom-15 w-full flex items-center justify-center">
         <ReportCrimeDialog handleAddCrime={handleAddCrime} />
       </div>
     </main>
