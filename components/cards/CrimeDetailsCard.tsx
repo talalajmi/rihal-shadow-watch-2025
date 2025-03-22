@@ -47,7 +47,11 @@ const CrimeDetailsCard = (props: CrimeDetailCardProps) => {
       <div className="space-y-3">
         <div className="flex justify-between items-center flex-col sm:flex-row gap-2">
           <div className="flex items-center flex-col sm:flex-row gap-2">
-            <div className="rounded-full bg-gray-100 p-2">
+            <div
+              className={`rounded-full bg-gray-100 p-2
+            ${crimeStatusColor(crime.report_status)}
+              `}
+            >
               <Image
                 width={35}
                 height={35}

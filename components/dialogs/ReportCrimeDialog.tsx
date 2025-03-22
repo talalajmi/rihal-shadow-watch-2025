@@ -145,7 +145,7 @@ const ReportCrimeDialog = (props: ReportCrimeDialogProps) => {
               setIsDialogopen(true);
               setIsUserSelectingLocation(false);
             }}
-            className={`rounded-full cursor-pointer transition duration-300 ease-in-out sm:hover:scale-105
+            className={`cursor-pointer transition duration-300 ease-in-out sm:hover:scale-105
             ${
               selectedLocation && isUserSelectingLocation
                 ? "bg-green-600 hover:bg-green-700"
@@ -269,7 +269,7 @@ const ReportCrimeDialog = (props: ReportCrimeDialogProps) => {
               <Button
                 type="button"
                 onClick={handleSelectLocationFromMap}
-                className="cursor-pointer rounded-full bg-blue-500 hover:bg-blue-600"
+                className="cursor-pointer bg-blue-500 hover:bg-blue-600"
               >
                 <MapPin size={20} />
                 Select Crime Location
@@ -351,7 +351,7 @@ const ReportCrimeDialog = (props: ReportCrimeDialogProps) => {
               </div>
             </div>
             <DialogFooter>
-              <Button className="cursor-pointer rounded-full" type="submit">
+              <Button className="cursor-pointer" type="submit">
                 Save changes
               </Button>
             </DialogFooter>
