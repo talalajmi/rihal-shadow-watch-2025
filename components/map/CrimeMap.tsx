@@ -18,6 +18,9 @@ const CrimeMap = (props: CrimeMapProps) => {
   // ** States
   const [selectedCrime, setSelectedCrime] = useState<Crime | null>(null);
 
+  // ** Constants
+  const defaultCenter = { lat: 23.588, lng: 58.3829 };
+
   return (
     <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}>
       <div className="w-full h-screen">
@@ -25,7 +28,7 @@ const CrimeMap = (props: CrimeMapProps) => {
           defaultZoom={12}
           disableDefaultUI={true}
           gestureHandling={"greedy"}
-          defaultCenter={{ lat: 23.588, lng: 58.3829 }}
+          defaultCenter={defaultCenter}
           mapId={process.env.NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID}
         >
           <CrimeMapMarkers
@@ -33,7 +36,6 @@ const CrimeMap = (props: CrimeMapProps) => {
             handleMarkerClick={(crime) => setSelectedCrime(crime)}
           />
 
-          {/* InfoWindow */}
           {selectedCrime && (
             <CrimeDetailsCard
               crime={selectedCrime}

@@ -12,7 +12,7 @@ export const reportCrimeSchema = z.object({
   type: z.string().min(1, "Please select a crime type"),
   nationalId: z
     .string()
-    .min(8, "National ID must be at least 8 character")
+    .min(8, "National ID must be at least 8 characters")
     .max(8, "National ID must be 8 characters")
     .refine(
       (value) => /^[0-9]+$/.test(value),
@@ -23,16 +23,18 @@ export const reportCrimeSchema = z.object({
       .number()
       .min(-90, "Latitude must be between -90 and 90 degrees")
       .max(90, "Latitude must be between -90 and 90 degrees")
+      .nullable() // Allow null values temporarily
       .refine(
-        (value) => Number.isFinite(value),
+        (value) => value === null || Number.isFinite(value),
         "Latitude must be a valid number"
       ),
     lng: z
       .number()
       .min(-180, "Longitude must be between -180 and 180 degrees")
       .max(180, "Longitude must be between -180 and 180 degrees")
+      .nullable() // Allow null values temporarily
       .refine(
-        (value) => Number.isFinite(value),
+        (value) => value === null || Number.isFinite(value),
         "Longitude must be a valid number"
       ),
   }),

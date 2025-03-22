@@ -41,8 +41,8 @@ const defaultValues = {
   type: "",
   nationalId: "",
   location: {
-    lat: 0,
-    lng: 0,
+    lat: null,
+    lng: null,
   },
 };
 
@@ -192,13 +192,18 @@ const ReportCrimeDialog = (props: ReportCrimeDialogProps) => {
                           type="number"
                           step="any"
                           placeholder="Enter latitude"
-                          value={field.value || 0}
-                          onChange={(e) =>
+                          value={
+                            field.value !== null && field.value !== undefined
+                              ? field.value
+                              : ""
+                          }
+                          onChange={(e) => {
+                            const value = e.target.value;
                             form.setValue(
                               "location.lat",
-                              parseFloat(e.target.value) || 0
-                            )
-                          }
+                              value === "" ? null : parseFloat(value)
+                            );
+                          }}
                         />
                       </FormControl>
                       <FormMessage />
@@ -218,13 +223,18 @@ const ReportCrimeDialog = (props: ReportCrimeDialogProps) => {
                           type="number"
                           step="any"
                           placeholder="Enter longitude"
-                          value={field.value || 0}
-                          onChange={(e) =>
+                          value={
+                            field.value !== null && field.value !== undefined
+                              ? field.value
+                              : ""
+                          }
+                          onChange={(e) => {
+                            const value = e.target.value;
                             form.setValue(
                               "location.lng",
-                              parseFloat(e.target.value) || 0
-                            )
-                          }
+                              value === "" ? null : parseFloat(value)
+                            );
+                          }}
                         />
                       </FormControl>
                       <FormMessage />

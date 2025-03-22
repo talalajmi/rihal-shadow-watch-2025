@@ -12,17 +12,17 @@ interface CrimeDetailCardProps {
 const crimeStatusColor = (status: string) => {
   switch (status) {
     case "Pending":
-      return "bg-gray-500/20 text-gray-700";
+      return "bg-gray-500/10 text-gray-500";
     case "En Route":
-      return "bg-blue-500/20 text-blue-700";
+      return "bg-blue-500/10 text-blue-500";
     case "On Scene":
-      return "bg-indigo-500/20 text-indigo-700";
+      return "bg-indigo-500/10 text-indigo-500";
     case "Under Investigation":
-      return "bg-orange-500/20 text-orange-700";
+      return "bg-orange-500/10 text-orange-500";
     case "Resolved":
-      return "bg-green-500/20 text-green-700";
+      return "bg-green-500/10 text-green-500";
     default:
-      return "bg-gray-500/20 text-gray-700";
+      return "bg-gray-500/10 text-gray-500";
   }
 };
 
@@ -63,7 +63,7 @@ const CrimeDetailsCard = (props: CrimeDetailCardProps) => {
             </div>
           </div>
           <div
-            className={`font-bold p-2 rounded-full w-full text-center sm:w-fit ${crimeStatusColor(
+            className={`font-bold px-3 py-2 rounded-full w-full text-center sm:w-fit ${crimeStatusColor(
               crime.report_status
             )}`}
           >
@@ -71,10 +71,10 @@ const CrimeDetailsCard = (props: CrimeDetailCardProps) => {
           </div>
         </div>
         <hr />
-        <p className="font-bold text-gray-700 text-[16px]">
-          Report:
-          <span className="font-normal ml-1">{crime.report_details}</span>
-        </p>
+        <div className="flex flex-col gap-2 items-start">
+          <p className="font-bold text-gray-700 text-lg">Report:</p>
+          <span className="font-normal text-base">{crime.report_details}</span>
+        </div>
       </div>
     </InfoWindow>
   );
