@@ -3,9 +3,9 @@
 import Image from "next/image";
 import { useState } from "react";
 import { Button } from "../ui/button";
+import { categories } from "@/lib/utils";
 import { useRouter, useSearchParams } from "next/navigation";
 import { formUrlQuery, removeKeysFormUrlQuery } from "@/lib/url";
-import { categories } from "@/lib/utils";
 
 const CategoryFilters = () => {
   // ** Hooks

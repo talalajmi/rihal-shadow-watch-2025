@@ -11,6 +11,7 @@ export enum CrimeType {
   Robbery = "robbery",
   Homicide = "homicide",
   Kidnapping = "kidnapping",
+  Theft = "theft",
 }
 
 export const categories = [
@@ -33,6 +34,11 @@ export const categories = [
     categoryName: "Kidnapping",
     icon: "/icons/kidnapping.png",
     type: CrimeType.Kidnapping,
+  },
+  {
+    categoryName: "Theft",
+    icon: "/icons/theft.png",
+    type: CrimeType.Theft,
   },
 ];
 
