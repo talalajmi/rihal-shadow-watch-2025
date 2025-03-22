@@ -296,9 +296,8 @@ const ReportCrimeDialog = (props: ReportCrimeDialogProps) => {
                         <FormLabel>Latitude</FormLabel>
                         <FormControl>
                           <Input
-                            type="number"
                             step="any"
-                            inputMode="numeric"
+                            type="number"
                             placeholder="Enter latitude"
                             value={
                               field.value !== null && field.value !== undefined
@@ -328,9 +327,8 @@ const ReportCrimeDialog = (props: ReportCrimeDialogProps) => {
                         <FormLabel>Longitude</FormLabel>
                         <FormControl>
                           <Input
-                            type="number"
                             step="any"
-                            inputMode="numeric"
+                            type="number"
                             placeholder="Enter longitude"
                             value={
                               field.value !== null && field.value !== undefined
