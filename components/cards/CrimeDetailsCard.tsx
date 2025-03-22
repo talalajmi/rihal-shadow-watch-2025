@@ -49,8 +49,8 @@ const CrimeDetailsCard = (props: CrimeDetailCardProps) => {
           <div className="flex items-center flex-col sm:flex-row gap-2">
             <div className="rounded-full bg-gray-100 p-2">
               <Image
-                width={30}
-                height={30}
+                width={35}
+                height={35}
                 alt="Crime"
                 src={`/icons/${crime.crime_type.toLocaleLowerCase()}.png`}
               />
