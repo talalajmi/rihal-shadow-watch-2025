@@ -41,7 +41,7 @@ import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import { addCrime } from "@/lib/actions/crime.action";
 import { Crime } from "@/types/crime";
-import { Check, MapPin, X } from "lucide-react";
+import { Check, FilePenLine, MapPin, X } from "lucide-react";
 
 const defaultValues = {
   details: "",
@@ -130,7 +130,7 @@ const ReportCrimeDialog = (props: ReportCrimeDialogProps) => {
                   <Button
                     size="icon"
                     onClick={handleCancelSelection}
-                    className="bg-red-500 hover:bg-red-600 rounded-full cursor-pointer transition duration-300 ease-in-out sm:hover:scale-105"
+                    className="bg-red-500 hover:bg-red-600 rounded-full  transition duration-300 ease-in-out sm:hover:scale-105"
                   >
                     <X size={20} strokeWidth={2} />
                   </Button>
@@ -145,7 +145,7 @@ const ReportCrimeDialog = (props: ReportCrimeDialogProps) => {
               setIsDialogopen(true);
               setIsUserSelectingLocation(false);
             }}
-            className={`cursor-pointer transition duration-300 ease-in-out sm:hover:scale-105
+            className={` transition duration-300 ease-in-out sm:hover:scale-105 rounded-full
             ${
               selectedLocation && isUserSelectingLocation
                 ? "bg-green-600 hover:bg-green-700"
@@ -159,7 +159,10 @@ const ReportCrimeDialog = (props: ReportCrimeDialogProps) => {
                 Confirm Location
               </>
             ) : (
-              "Report Crime"
+              <>
+                <FilePenLine size={20} />
+                Report Crime
+              </>
             )}
           </Button>
         </div>
@@ -269,7 +272,7 @@ const ReportCrimeDialog = (props: ReportCrimeDialogProps) => {
               <Button
                 type="button"
                 onClick={handleSelectLocationFromMap}
-                className="cursor-pointer bg-blue-500 hover:bg-blue-600"
+                className=" bg-blue-500 hover:bg-blue-600"
               >
                 <MapPin size={20} />
                 Select Crime Location
@@ -351,7 +354,8 @@ const ReportCrimeDialog = (props: ReportCrimeDialogProps) => {
               </div>
             </div>
             <DialogFooter>
-              <Button className="cursor-pointer" type="submit">
+              <Button type="submit">
+                <Check size={20} strokeWidth={2} />
                 Save changes
               </Button>
             </DialogFooter>

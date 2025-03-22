@@ -42,11 +42,11 @@ const CategoryFilters = () => {
   };
 
   return (
-    <div className="flex gap-4 overflow-x-auto w-full justify-start lg:justify-center">
+    <div className="flex gap-4 overflow-x-auto w-full justify-start lg:justify-center no-scrollbar">
       {categories.map((category) => (
         <Button
           key={category.type}
-          className="rounded-full cursor-pointer"
+          className="rounded-full"
           onClick={() => handleFilterCategory(category.type)}
           variant={activeFilter === category.type ? "default" : "outline"}
         >
