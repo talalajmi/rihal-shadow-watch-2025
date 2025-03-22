@@ -15,12 +15,20 @@ interface CrimeDashboardProps {
   filter?: string;
 }
 
+interface LocationLatLng {
+  lat: number;
+  lng: number;
+}
+
 export default function CrimeDashboard(props: CrimeDashboardProps) {
   // ** Destructure props
   const { initialCrimes, query, filter } = props;
 
   // ** States
   const [crimes, setCrimes] = useState(initialCrimes);
+  const [isUserSelectingLocation, setIsUserSelectingLocation] = useState(false);
+  const [selectedLocation, setSelectedLocation] =
+    useState<LocationLatLng | null>(null);
 
   // ** Filtered crimes
   const filteredCrimes = filterCrimes(crimes, query, filter);
@@ -37,9 +45,19 @@ export default function CrimeDashboard(props: CrimeDashboardProps) {
           <CategoryFilters />
         </div>
       </div>
-      <CrimeMap crimes={filteredCrimes} />
+      <CrimeMap
+        crimes={filteredCrimes}
+        selectedLocation={selectedLocation}
+        setSelectedLocation={setSelectedLocation}
+        isUserSelectingLocation={isUserSelectingLocation}
+      />
       <div className="absolute bottom-25 w-full flex items-center justify-center">
-        <ReportCrimeDialog handleAddCrime={handleAddCrime} />
+        <ReportCrimeDialog
+          handleAddCrime={handleAddCrime}
+          selectedLocation={selectedLocation}
+          isUserSelectingLocation={isUserSelectingLocation}
+          setIsUserSelectingLocation={setIsUserSelectingLocation}
+        />
       </div>
     </main>
   );

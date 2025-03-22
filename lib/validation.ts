@@ -6,8 +6,8 @@ export const reportCrimeSchema = z.object({
     .min(1, "Details must be at least 1 character")
     .max(255, "Details must be at most 255 characters")
     .refine(
-      (value) => /^[a-zA-Z0-9\s]+$/.test(value) && /[a-zA-Z]/.test(value),
-      "Details must be alphanumeric and cannot be numbers only"
+      (value) => /^[a-zA-Z0-9\s]+$/.test(value),
+      "Details must be alphanumeric and cannot contain special characters"
     ),
   type: z.string().min(1, "Please select a crime type"),
   nationalId: z
