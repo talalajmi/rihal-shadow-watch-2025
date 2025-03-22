@@ -42,7 +42,7 @@ const CrimeDetailsCard = (props: CrimeDetailCardProps) => {
       className="p-3"
       position={crimePosition}
       onCloseClick={handleOnCloseClick}
-      headerContent={<h3 className="text-xl font-bold">Crime Details</h3>}
+      headerContent={<h3 className="text-xl font-bold mb-3">Crime Details</h3>}
     >
       <div className="space-y-3">
         <div className="flex justify-between items-center flex-col sm:flex-row gap-2">
