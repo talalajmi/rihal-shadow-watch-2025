@@ -161,6 +161,15 @@
       "report_status": "Pending",
       "latitude": 22.20308784738531,
       "longitude": 56.846775260124645
+    },
+    {
+      "id": 19,
+      "report_details": "New Crime",
+      "crime_type": "Homicide",
+      "report_date_time": "2025-03-23-08-55",
+      "report_status": "Pending",
+      "latitude": 36.97027356952206,
+      "longitude": -119.24045319780983
     }
   ]
 }

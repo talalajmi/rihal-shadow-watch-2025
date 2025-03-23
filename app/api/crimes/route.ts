@@ -43,7 +43,10 @@ export async function POST(request: Request) {
     //  ** Read the current crimes from the file
     const filePath = path.join(process.cwd(), "database", "crimes.json");
     const fileContents = fs.readFileSync(filePath, "utf8");
+
+    // ** Parse the JSON data - note we're accessing the crimes array property
     const data = JSON.parse(fileContents);
+    const crimes = data.crimes;
 
     // ** Convert form data to Crime type
     const newCrime: Crime = {
@@ -57,7 +60,16 @@ export async function POST(request: Request) {
     };
 
     // ** Add the new crime to the array
-    data.crimes.push(newCrime);
+    crimes.push(newCrime);
+
+    console.log({
+      message: "From addCrime route",
+      newCrime: newCrime,
+      crimes:
+        crimes.length > 0
+          ? crimes.map((crime: Crime) => crime.id)
+          : "No crimes",
+    });
 
     // ** Write the updated object back to the file
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
