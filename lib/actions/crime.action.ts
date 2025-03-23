@@ -44,12 +44,6 @@ export const addCrime = async (
     longitude: crimeData.location.lng,
   };
 
-  console.log({
-    message: "From addCrime action",
-    crime: crime,
-    baseUrl: baseUrl,
-  });
-
   try {
     const response = await fetch(`${baseUrl}/crimes`, {
       method: "POST",
