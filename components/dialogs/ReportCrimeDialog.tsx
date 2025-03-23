@@ -41,7 +41,7 @@ import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import { addCrime } from "@/lib/actions/crime.action";
 import { Crime } from "@/types/crime";
-import { Check, FilePenLine, MapPin, X } from "lucide-react";
+import { Check, FilePenLine, Map, MapPin, X } from "lucide-react";
 
 const defaultValues = {
   details: "",
@@ -60,6 +60,7 @@ interface ReportCrimeDialogProps {
   selectedLocation?: { lat: number; lng: number } | null;
   isUserSelectingLocation: boolean;
   setIsUserSelectingLocation: (isSelecting: boolean) => void;
+  setSelectedLocation: (location: { lat: number; lng: number } | null) => void;
 }
 
 const ReportCrimeDialog = (props: ReportCrimeDialogProps) => {
@@ -67,8 +68,9 @@ const ReportCrimeDialog = (props: ReportCrimeDialogProps) => {
   const {
     handleAddCrime,
     selectedLocation,
-    setIsUserSelectingLocation,
+    setSelectedLocation,
     isUserSelectingLocation,
+    setIsUserSelectingLocation,
   } = props;
 
   // ** States
@@ -114,6 +116,7 @@ const ReportCrimeDialog = (props: ReportCrimeDialogProps) => {
   const handleCancelSelection = () => {
     form.setValue("location", { lat: null, lng: null });
     setIsUserSelectingLocation(false);
+    setSelectedLocation(null);
   };
 
   return (
@@ -123,7 +126,7 @@ const ReportCrimeDialog = (props: ReportCrimeDialogProps) => {
     >
       <DialogTrigger asChild>
         <div className="flex flex-col items-center gap-5">
-          {selectedLocation && isUserSelectingLocation ? (
+          {isUserSelectingLocation ? (
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -145,6 +148,7 @@ const ReportCrimeDialog = (props: ReportCrimeDialogProps) => {
               setIsDialogopen(true);
               setIsUserSelectingLocation(false);
             }}
+            disabled={isUserSelectingLocation && !selectedLocation}
             className={` transition duration-300 ease-in-out sm:hover:scale-105 rounded-full
             ${
               selectedLocation && isUserSelectingLocation
@@ -157,6 +161,11 @@ const ReportCrimeDialog = (props: ReportCrimeDialogProps) => {
               <>
                 <Check size={20} strokeWidth={2} />
                 Confirm Location
+              </>
+            ) : !selectedLocation && isUserSelectingLocation ? (
+              <>
+                <Map size={20} />
+                Select Location on Map
               </>
             ) : (
               <>
@@ -352,10 +361,7 @@ const ReportCrimeDialog = (props: ReportCrimeDialogProps) => {
               </div>
             </div>
             <DialogFooter>
-              <Button type="submit">
-                <Check size={20} strokeWidth={2} />
-                Save changes
-              </Button>
+              <Button type="submit">Submit</Button>
             </DialogFooter>
           </form>
         </Form>

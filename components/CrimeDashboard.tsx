@@ -41,8 +41,30 @@ export default function CrimeDashboard(props: CrimeDashboardProps) {
     <main className="relative min-h-screen flex flex-col items-center justify-center">
       <div className="p-2 absolute top-10 z-10 w-full flex items-center justify-center">
         <div className="w-full md:max-w-[50rem] flex flex-col items-center gap-4 bg-white p-5 rounded-xl shadow-lg">
-          <SearchCrimeBar />
-          <CategoryFilters />
+          {isUserSelectingLocation ? (
+            <div className="flex flex-col gap-3 items-center">
+              <h2 className="text-lg font-semibold text-gray-800">
+                Select the location of the crime
+              </h2>
+              {selectedLocation && (
+                <div className="flex gap-2 items-center">
+                  <p className="text-gray-800 font-semibold">
+                    Latitude:{" "}
+                    <span className="font-normal">{selectedLocation.lat}</span>
+                  </p>
+                  <p className="text-gray-800 font-semibold">
+                    Longitude:{" "}
+                    <span className="font-normal">{selectedLocation.lng}</span>
+                  </p>
+                </div>
+              )}
+            </div>
+          ) : (
+            <>
+              <SearchCrimeBar />
+              <CategoryFilters />
+            </>
+          )}
         </div>
       </div>
       <CrimeMap
@@ -55,6 +77,7 @@ export default function CrimeDashboard(props: CrimeDashboardProps) {
         <ReportCrimeDialog
           handleAddCrime={handleAddCrime}
           selectedLocation={selectedLocation}
+          setSelectedLocation={setSelectedLocation}
           isUserSelectingLocation={isUserSelectingLocation}
           setIsUserSelectingLocation={setIsUserSelectingLocation}
         />

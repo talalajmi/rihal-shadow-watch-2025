@@ -72,7 +72,7 @@ const CrimeMap = (props: CrimeMapProps) => {
 
           {/* Selected Location Marker */}
           {selectedLocation && isUserSelectingLocation ? (
-            <AdvancedMarker draggable position={selectedLocation} />
+            <AdvancedMarker position={selectedLocation} />
           ) : null}
         </Map>
       </div>
