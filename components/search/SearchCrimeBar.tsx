@@ -2,9 +2,11 @@
 
 import { Input } from "../ui/input";
 import { useEffect, useState } from "react";
-import { Search } from "lucide-react";
+import { Search, X } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { formUrlQuery, removeKeysFormUrlQuery } from "@/lib/url";
+import { Button } from "../ui/button";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
 const SearchCrimeBar = () => {
   // ** Hooks
@@ -51,6 +53,27 @@ const SearchCrimeBar = () => {
         placeholder="Search by type, date, or ID (e.g. Homicide, 2025-03-08, 15)"
         className="bg-white pl-12 h-12 w-full rounded-full"
       />
+      {searchQuery.length > 0 && (
+        <div className="absolute right-5">
+          <Tooltip>
+            <TooltipTrigger>
+              <Button
+                size="icon"
+                variant="ghost"
+                onClick={() => {
+                  setSearchQuery("");
+                }}
+                className="text-gray-400 rounded-full"
+              >
+                <X size={20} />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Clear search</p>
+            </TooltipContent>
+          </Tooltip>
+        </div>
+      )}
     </div>
   );
 };
