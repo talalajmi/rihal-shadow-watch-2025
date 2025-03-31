@@ -48,8 +48,8 @@ const defaultValues = {
   type: "",
   nationalId: "",
   location: {
-    lat: null,
-    lng: null,
+    lat: 0,
+    lng: 0,
   },
 };
 
@@ -114,7 +114,7 @@ const ReportCrimeDialog = (props: ReportCrimeDialogProps) => {
   };
 
   const handleCancelSelection = () => {
-    form.setValue("location", { lat: null, lng: null });
+    form.setValue("location", { lat: 0, lng: 0 });
     setIsUserSelectingLocation(false);
     setSelectedLocation(null);
   };
@@ -308,16 +308,12 @@ const ReportCrimeDialog = (props: ReportCrimeDialogProps) => {
                             step="any"
                             type="number"
                             placeholder="Enter latitude"
-                            value={
-                              field.value !== null && field.value !== undefined
-                                ? field.value
-                                : ""
-                            }
+                            value={field.value}
                             onChange={(e) => {
                               const value = e.target.value;
                               form.setValue(
                                 "location.lat",
-                                value === "" ? null : parseFloat(value)
+                                value === "" ? 0 : parseFloat(value)
                               );
                             }}
                           />
@@ -339,16 +335,12 @@ const ReportCrimeDialog = (props: ReportCrimeDialogProps) => {
                             step="any"
                             type="number"
                             placeholder="Enter longitude"
-                            value={
-                              field.value !== null && field.value !== undefined
-                                ? field.value
-                                : ""
-                            }
+                            value={field.value}
                             onChange={(e) => {
                               const value = e.target.value;
                               form.setValue(
                                 "location.lng",
-                                value === "" ? null : parseFloat(value)
+                                value === "" ? 0 : parseFloat(value)
                               );
                             }}
                           />

@@ -23,19 +23,13 @@ export const reportCrimeSchema = z.object({
       .number()
       .min(-90, "Latitude must be between -90 and 90 degrees")
       .max(90, "Latitude must be between -90 and 90 degrees")
-      .nullable() // Allow null values temporarily
-      .refine(
-        (value) => value === null || Number.isFinite(value),
-        "Latitude must be a valid number"
-      ),
+      .nullable()
+      .refine((value) => value !== null, "Latitude is required"),
     lng: z
       .number()
       .min(-180, "Longitude must be between -180 and 180 degrees")
       .max(180, "Longitude must be between -180 and 180 degrees")
-      .nullable() // Allow null values temporarily
-      .refine(
-        (value) => value === null || Number.isFinite(value),
-        "Longitude must be a valid number"
-      ),
+      .nullable()
+      .refine((value) => value !== null, "Longitude is required"),
   }),
 });
